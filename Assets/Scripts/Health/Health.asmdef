@@ -1,0 +1,16 @@
+{
+    "name": "Health",
+    "rootNamespace": "Game.Health",
+    "references": [
+        "GUID:13b0e168bf38ceb4ba3959582fd61d36"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

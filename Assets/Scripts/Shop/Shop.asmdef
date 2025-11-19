@@ -1,0 +1,17 @@
+{
+    "name": "Shop",
+    "rootNamespace": "Game.Shop",
+    "references": [
+        "GUID:13b0e168bf38ceb4ba3959582fd61d36",
+        "GUID:029025e1205b66b4c8a934409337eed0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
