@@ -5,19 +5,21 @@ namespace Game.Gold
 {
     public class GoldCostComponent : MonoBehaviour, ICost
     {
+        private float _cost;
+
         public bool CanAfford()
         {
-            throw new System.NotImplementedException();
+            return PlayerData.Instance.Gold > _cost;
         }
 
         public void SetValue(string value)
         {
-            throw new System.NotImplementedException();
+            _cost = float.Parse(value);
         }
 
         public void Apply()
         {
-            throw new System.NotImplementedException();
+            PlayerData.Instance.Gold -= _cost;
         }
     }
 }

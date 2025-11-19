@@ -1,3 +1,4 @@
+using System;
 using Game.Core;
 using UnityEngine;
 
@@ -5,14 +6,17 @@ namespace Game.VIP
 {
     public class VIPRewardComponent : MonoBehaviour, IReward
     {
+        private TimeSpan _reward;
+
         public void SetValue(string value)
         {
-            throw new System.NotImplementedException();
+            var seconds = float.Parse(value);
+            _reward = TimeSpan.FromSeconds(seconds);
         }
 
         public void Apply()
         {
-            throw new System.NotImplementedException();
+            PlayerData.Instance.VIPDuration += _reward;
         }
     }
 }

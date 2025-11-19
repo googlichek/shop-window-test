@@ -5,14 +5,16 @@ namespace Game.Location
 {
     public class LocationRewardComponent : MonoBehaviour, IReward
     {
+        private string _reward;
+
         public void SetValue(string value)
         {
-            throw new System.NotImplementedException();
+            _reward = value;
         }
 
         public void Apply()
         {
-            throw new System.NotImplementedException();
+            PlayerData.Instance.Location = _reward;
         }
     }
 }

@@ -5,19 +5,21 @@ namespace Game.Location
 {
     public class LocationCostComponent : MonoBehaviour, ICost
     {
+        private string _cost;
+
         public bool CanAfford()
         {
-            throw new System.NotImplementedException();
+            return PlayerData.Instance.Location.Equals(_cost);
         }
 
         public void SetValue(string value)
         {
-            throw new System.NotImplementedException();
+            _cost = value;
         }
 
         public void Apply()
         {
-            throw new System.NotImplementedException();
+            PlayerData.Instance.Location = string.Empty;
         }
     }
 }

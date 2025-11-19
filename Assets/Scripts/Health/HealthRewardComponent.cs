@@ -5,14 +5,16 @@ namespace Game.Health
 {
     public class HealthRewardComponent : MonoBehaviour, IReward
     {
+        private float _reward;
+
         public void SetValue(string value)
         {
-            throw new System.NotImplementedException();
+            _reward = float.Parse(value);
         }
 
         public void Apply()
         {
-            throw new System.NotImplementedException();
+            PlayerData.Instance.Health += _reward;
         }
     }
 }

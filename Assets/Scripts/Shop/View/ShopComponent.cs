@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Game.Shop
 {
-    public class ShopContentComponent : MonoBehaviour
+    public class ShopComponent : MonoBehaviour
     {
         [SerializeReference] private GameObject _itemPrefab;
         [SerializeReference] private Toggle _togglePrefab;
