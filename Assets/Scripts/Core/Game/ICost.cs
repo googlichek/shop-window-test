@@ -1,7 +1,9 @@
 namespace Game.Core
 {
-    public interface IReward
+    public interface ICost
     {
+        bool CanAfford();
+
         void Apply();
     }
 }

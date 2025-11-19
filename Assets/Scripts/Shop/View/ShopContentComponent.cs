@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 namespace Game.Shop
 {
-    public class ShopContent : MonoBehaviour
+    public class ShopContentComponent : MonoBehaviour
     {
-        [SerializeReference] private ShopItem _itemPrefab;
+        [SerializeReference] private ShopItemComponent _itemComponentPrefab;
         [SerializeReference] private Toggle _togglePrefab;
         [SerializeReference] private ToggleGroup _toggleGroup;
         [SerializeReference] private SimpleScrollSnap _scrollSnap;
@@ -31,15 +31,18 @@ namespace Game.Shop
 
         public void Add(int index)
         {
-            Transform paginationTransform = _scrollSnap.Pagination.transform;
-            Vector3 position = paginationTransform.position;
-            Toggle toggle = Instantiate(_togglePrefab, position + new Vector3(_toggleWidth * (_scrollSnap.NumberOfPanels + 1), 0, 0), Quaternion.identity, paginationTransform);
+            var paginationTransform = _scrollSnap.Pagination.transform;
+            var position = paginationTransform.position;
+            var toggle = Instantiate(_togglePrefab, position + new Vector3(_toggleWidth * (_scrollSnap.NumberOfPanels + 1), 0, 0), Quaternion.identity, paginationTransform);
             toggle.group = _toggleGroup;
             position -= new Vector3(_toggleWidth / 2f, 0, 0);
             _scrollSnap.Pagination.transform.position = position;
 
-            _itemPrefab.gameObject.GetComponent<Image>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-            _scrollSnap.Add(_itemPrefab.gameObject, index);
+            var item = _scrollSnap.Add(_itemComponentPrefab.gameObject, index);
+            item.gameObject.GetComponent<Image>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            var bundleItem = _shopData.Bundles[index];
+            bundleItem.AddCostComponentToGameObject(item.gameObject);
+            bundleItem.AddRewardComponentToGameObject(item.gameObject);
         }
 
         public void Remove(int index)
