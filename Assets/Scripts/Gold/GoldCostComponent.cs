@@ -9,7 +9,7 @@ namespace Game.Gold
 
         public bool CanAfford()
         {
-            return PlayerData.Instance.Gold > _cost;
+            return PlayerData.Instance.Gold >= _cost;
         }
 
         public void SetValue(string value)

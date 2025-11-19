@@ -7,6 +7,11 @@ namespace Game.Location
     {
         private string _reward;
 
+        public bool DoWant()
+        {
+            return string.IsNullOrEmpty(PlayerData.Instance.Location);
+        }
+
         public void SetValue(string value)
         {
             _reward = value;

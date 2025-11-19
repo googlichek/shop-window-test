@@ -7,6 +7,11 @@ namespace Game.Gold
     {
         private float _reward;
 
+        public bool DoWant()
+        {
+            return true;
+        }
+
         public void SetValue(string value)
         {
             _reward = float.Parse(value);

@@ -8,6 +8,11 @@ namespace Game.VIP
     {
         private TimeSpan _reward;
 
+        public bool DoWant()
+        {
+            return true;
+        }
+
         public void SetValue(string value)
         {
             var seconds = float.Parse(value);

@@ -42,11 +42,10 @@ namespace Game.Shop
             item.GetComponent<Image>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
 
             var bundleItem = _shopData.Bundles[index];
-
             var costComponents = bundleItem.AddCostComponentsToGameObject(item.gameObject);
             var rewardComponents = bundleItem.AddRewardComponentsToGameObject(item.gameObject);
             var shopItemComponent = item.GetComponent<ShopItemComponent>();
-            shopItemComponent.Setup(costComponents, rewardComponents);
+            shopItemComponent.Setup(bundleItem.Description, costComponents, rewardComponents);
         }
 
         public void Remove(int index)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ namespace Game.Shop
 {
     public class ShopItemComponent : MonoBehaviour
     {
+        [SerializeReference] private TextMeshProUGUI _descriptionText;
         [SerializeReference] private Button _button;
 
         private List<ICost> _costComponents;
@@ -21,9 +23,21 @@ namespace Game.Shop
         void Update()
         {
             bool isButtonInteractable = true;
+
             foreach (var costComponent in _costComponents)
             {
                 if (costComponent.CanAfford())
+                {
+                    continue;
+                }
+
+                isButtonInteractable = false;
+                break;
+            }
+
+            foreach (var rewardComponent in _rewardComponents)
+            {
+                if (rewardComponent.DoWant())
                 {
                     continue;
                 }
@@ -43,8 +57,9 @@ namespace Game.Shop
             _button.onClick.RemoveListener(OnButtonClick);
         }
 
-        public void Setup(List<ICost> costComponents, List<IReward> rewardComponents)
+        public void Setup(string description, List<ICost> costComponents, List<IReward> rewardComponents)
         {
+            _descriptionText.SetText(description);
             _costComponents = costComponents;
             _rewardComponents = rewardComponents;
         }
