@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using DanielLochner.Assets.SimpleScrollSnap;
 using Game.Core;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Game.Shop
 {
@@ -10,23 +12,39 @@ namespace Game.Shop
     {
         [SerializeReference] private GameObject _itemPrefab;
         [SerializeReference] private Toggle _togglePrefab;
+
+        [Space]
+
         [SerializeReference] private ToggleGroup _toggleGroup;
         [SerializeReference] private SimpleScrollSnap _scrollSnap;
+
+        [Space]
+
         [SerializeReference] private ShopBundlesSO _shopData;
 
+        [Space]
+
+        [SerializeReference] private Button _backButton;
+
         private float _toggleWidth;
+
+        bool hasSceneLoaded = false;
 
         void Awake()
         {
             _toggleWidth = ((RectTransform) _togglePrefab.transform).sizeDelta.x * (Screen.width / Constants.ScreenResolution.x);
+
+            _backButton.onClick.AddListener(OnBackButtonClick);
+
+            SceneManager.sceneLoaded += HandleSceneLoaded;
+            HandleSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
         }
 
-        void Start()
+        void OnDestroy()
         {
-            for (int index = 0; index < _shopData.Bundles.Count; index++)
-            {
-                Add(index);
-            }
+            _backButton.onClick.RemoveListener(OnBackButtonClick);
+
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
         }
 
         public void Add(int index)
@@ -45,7 +63,7 @@ namespace Game.Shop
             var costComponents = bundleItem.AddCostComponentsToGameObject(item.gameObject);
             var rewardComponents = bundleItem.AddRewardComponentsToGameObject(item.gameObject);
             var shopItemComponent = item.GetComponent<ShopItemComponent>();
-            shopItemComponent.Setup(bundleItem.Description, costComponents, rewardComponents);
+            shopItemComponent.Setup(index, bundleItem.Description, costComponents, rewardComponents);
         }
 
         public void Remove(int index)
@@ -56,6 +74,42 @@ namespace Game.Shop
                 _scrollSnap.Pagination.transform.position += new Vector3(_toggleWidth / 2f, 0, 0);
 
                 _scrollSnap.Remove(index);
+            }
+        }
+
+        private void OnBackButtonClick()
+        {
+            int shopSceneIndex = Convert.ToInt32(Scenes.Shop);
+            SceneManager.LoadScene(shopSceneIndex);
+        }
+
+        private void HandleSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+        {
+            if (hasSceneLoaded)
+            {
+                return;
+            }
+
+            hasSceneLoaded = true;
+
+            int shopSceneIndex = Convert.ToInt32(Scenes.Shop);
+            int cardCloseUpSceneIndex = Convert.ToInt32(Scenes.CardCloseUp);
+
+            if (scene.buildIndex == shopSceneIndex)
+            {
+                _backButton.gameObject.SetActive(false);
+
+                for (int index = 0; index < _shopData.Bundles.Count; index++)
+                {
+                    Add(index);
+                }
+            }
+
+            if (scene.buildIndex == cardCloseUpSceneIndex)
+            {
+                _toggleGroup.gameObject.SetActive(false);
+
+                Add(PlayerData.Instance.CloseUpCardIndex);
             }
         }
     }

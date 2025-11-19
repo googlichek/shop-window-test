@@ -11,22 +11,27 @@ namespace Game.Core
         public string Description;
 
         [Space]
-
+#if UNITY_EDITOR
         public List<MonoScript> CostMonoScripts;
         public List<MonoScript> RewardMonoScripts;
-
+#endif
         public List<string> CostValues;
         public List<string> RewardValues;
 
         public List<string> CostAssemblyQualifiedNames;
         public List<string> RewardAssemblyQualifiedNames;
 
-        private List<Type> _cachedCostTypes =  new();
+        private List<Type> _cachedCostTypes = new();
         private List<Type> _cachedRewardTypes = new();
 
         private Type CostScriptType(int index)
         {
-            if (_cachedCostTypes[index] == null && !string.IsNullOrEmpty(CostAssemblyQualifiedNames[index]))
+            while (_cachedCostTypes.Count <= index)
+            {
+                _cachedCostTypes.Add(null);
+            }
+
+            if (_cachedCostTypes[index] == null && index < CostAssemblyQualifiedNames.Count && !string.IsNullOrEmpty(CostAssemblyQualifiedNames[index]))
             {
                 _cachedCostTypes[index] = Type.GetType(CostAssemblyQualifiedNames[index]);
             }
@@ -36,13 +41,19 @@ namespace Game.Core
 
         private Type RewardScriptType(int index)
         {
-            if (_cachedRewardTypes[index] == null && !string.IsNullOrEmpty(RewardAssemblyQualifiedNames[index]))
+            while (_cachedRewardTypes.Count <= index)
+            {
+                _cachedRewardTypes.Add(null);
+            }
+
+            if (_cachedRewardTypes[index] == null && index < RewardAssemblyQualifiedNames.Count && !string.IsNullOrEmpty(RewardAssemblyQualifiedNames[index]))
             {
                 _cachedRewardTypes[index] = Type.GetType(RewardAssemblyQualifiedNames[index]);
             }
 
             return _cachedRewardTypes[index];
         }
+
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -83,26 +94,27 @@ namespace Game.Core
                     else
                     {
                         Debug.LogWarning($"Script on {name} is not a MonoBehaviour!");
-                        RewardMonoScripts[index] = null;
+                        RewardMonoScripts.RemoveAt(index);
                     }
                 }
             }
         }
 #endif
 
-        // Add the component to a GameObject at runtime
         public List<ICost> AddCostComponentsToGameObject(GameObject target)
         {
             List<ICost> components = new();
-            for (int index = 0; index < CostMonoScripts.Count; index++)
+            for (int index = 0; index < CostValues.Count; index++)
             {
                 var scriptType = CostScriptType(index);
                 if (scriptType != null)
                 {
-                    var component = target.AddComponent(scriptType).GetComponent<ICost>();
-                    var value = CostValues[index];
-                    component.SetValue(value);
-                    components.Add(component);
+                    if (target.AddComponent(scriptType) is ICost component)
+                    {
+                        var value = CostValues[index];
+                        component.SetValue(value);
+                        components.Add(component);
+                    }
                 }
             }
 
@@ -112,15 +124,17 @@ namespace Game.Core
         public List<IReward> AddRewardComponentsToGameObject(GameObject target)
         {
             List<IReward> components = new();
-            for (int index = 0; index < RewardMonoScripts.Count; index++)
+            for (int index = 0; index < RewardValues.Count; index++)
             {
                 var scriptType = RewardScriptType(index);
                 if (scriptType != null)
                 {
-                    var component = target.AddComponent(scriptType).GetComponent<IReward>();
-                    var value = RewardValues[index];
-                    component.SetValue(value);
-                    components.Add(component);
+                    if (target.AddComponent(scriptType) is IReward component)
+                    {
+                        var value = RewardValues[index];
+                        component.SetValue(value);
+                        components.Add(component);
+                    }
                 }
             }
 

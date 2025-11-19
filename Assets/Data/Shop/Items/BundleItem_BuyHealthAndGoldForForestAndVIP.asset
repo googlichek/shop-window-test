@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d5d48341ad6c940a8b8aaf6d14059d, type: 3}
+  m_Name: BundleItem_BuyHealthAndGoldForForestAndVIP
+  m_EditorClassIdentifier: 
+  Description: Buy Health and Gold for Forest And VIP
+  CostMonoScripts:
+  - {fileID: 11500000, guid: 6aad11c00ae17d54caf5f8643cf4676b, type: 3}
+  - {fileID: 11500000, guid: 59b7fa799bd918c4b8af1045262a2f3d, type: 3}
+  RewardMonoScripts:
+  - {fileID: 11500000, guid: f0b77b1f762559240bb2efe53eeb25d5, type: 3}
+  - {fileID: 11500000, guid: 6cb29e6d2e911ab4884c12d9863f71f5, type: 3}
+  CostValues:
+  - Forest
+  - 30
+  RewardValues:
+  - 100
+  - 10
+  CostAssemblyQualifiedNames:
+  - Game.Location.LocationCostComponent, Location, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - Game.VIP.VIPCostComponent, VIP, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  RewardAssemblyQualifiedNames:
+  - Game.Gold.GoldRewardComponent, Gold, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Game.Health.HealthRewardComponent, Health, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null

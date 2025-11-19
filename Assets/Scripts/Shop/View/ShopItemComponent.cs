@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Game.Shop
@@ -29,12 +31,20 @@ namespace Game.Shop
         private List<ICost> _costComponents;
         private List<IReward> _rewardComponents;
 
+        private int _cardIndex;
+
         bool isPurchasing = false;
+        bool hasSceneLoaded = false;
 
         void Awake()
         {
             _buyButton.onClick.AddListener(OnBuyButtonClick);
             _buyButtonText.SetText(_purchaseString);
+
+            _previewButton.onClick.AddListener(OnPreviewButtonClick);
+
+            SceneManager.sceneLoaded += HandleSceneLoaded;
+            HandleSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
         }
 
         void Update()
@@ -77,10 +87,13 @@ namespace Game.Shop
         void OnDestroy()
         {
             _buyButton.onClick.RemoveListener(OnBuyButtonClick);
+            _previewButton.onClick.RemoveListener(OnPreviewButtonClick);
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
         }
 
-        public void Setup(string description, List<ICost> costComponents, List<IReward> rewardComponents)
+        public void Setup(int cardIndex, string description, List<ICost> costComponents, List<IReward> rewardComponents)
         {
+            _cardIndex = cardIndex;
             _descriptionText.SetText(description);
             _costComponents = costComponents;
             _rewardComponents = rewardComponents;
@@ -97,7 +110,10 @@ namespace Game.Shop
 
         private void OnPreviewButtonClick()
         {
-            _buyButton.interactable = false;
+            PlayerData.Instance.CloseUpCardIndex = _cardIndex;
+
+            int cardCloseUpSceneIndex = Convert.ToInt32(Scenes.CardCloseUp);
+            SceneManager.LoadScene(cardCloseUpSceneIndex);
         }
 
         private IEnumerator BuyBundleCoroutine()
@@ -128,6 +144,19 @@ namespace Game.Shop
 
             isPurchasing = false;
             _buyButtonText.SetText(_purchaseString);
+        }
+
+        private void HandleSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+        {
+            if (hasSceneLoaded)
+            {
+                return;
+            }
+
+            hasSceneLoaded = true;
+
+            int closeUpSceneIndex = Convert.ToInt32(Scenes.CardCloseUp);
+            _previewButton.gameObject.SetActive(scene.buildIndex != closeUpSceneIndex);
         }
     }
 }

@@ -13,5 +13,7 @@ namespace Game.Core
         public float ReservedHealth;
         public string ReservedLocation;
         public TimeSpan ReservedVIPDuration;
+
+        public int CloseUpCardIndex;
     }
 }
