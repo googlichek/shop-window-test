@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdd7870f24e46a40b91e37601722a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPrefab: {fileID: -8223329385354882660, guid: 8b8c16ed606c5fe49a2d437a835d6c6e, type: 3}
+  _itemPrefab: {fileID: 1066329051684300, guid: 8b8c16ed606c5fe49a2d437a835d6c6e, type: 3}
   _togglePrefab: {fileID: 114735760841618234, guid: 79e57417409b2684d8290b3109929fbf, type: 3}
   _toggleGroup: {fileID: 0}
   _scrollSnap: {fileID: 2799486673397017348}

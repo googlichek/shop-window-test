@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: BundleItem_BuyHealthforVIP
   m_EditorClassIdentifier: 
   Description: Buy Health for VIP
-  CostMonoScript: {fileID: 11500000, guid: 59b7fa799bd918c4b8af1045262a2f3d, type: 3}
-  RewardMonoScript: {fileID: 11500000, guid: 6cb29e6d2e911ab4884c12d9863f71f5, type: 3}
-  CostValue: 30
-  RewardValue: 100
-  CostAssemblyQualifiedName: Game.VIP.VIPCostComponent, VIP, Version=0.0.0.0, Culture=neutral,
+  CostMonoScripts:
+  - {fileID: 11500000, guid: 59b7fa799bd918c4b8af1045262a2f3d, type: 3}
+  RewardMonoScripts:
+  - {fileID: 11500000, guid: 6cb29e6d2e911ab4884c12d9863f71f5, type: 3}
+  CostValues:
+  - 30
+  RewardValues:
+  - 10
+  CostAssemblyQualifiedNames:
+  - Game.VIP.VIPCostComponent, VIP, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  RewardAssemblyQualifiedNames:
+  - Game.Health.HealthRewardComponent, Health, Version=0.0.0.0, Culture=neutral,
     PublicKeyToken=null
-  RewardAssemblyQualifiedName: Game.Health.HealthRewardComponent, Health, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null

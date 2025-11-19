@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: BundleItem_BuyGoldForVIP
   m_EditorClassIdentifier: 
   Description: Buy Gold for VIP
-  CostMonoScript: {fileID: 11500000, guid: 59b7fa799bd918c4b8af1045262a2f3d, type: 3}
-  RewardMonoScript: {fileID: 11500000, guid: f0b77b1f762559240bb2efe53eeb25d5, type: 3}
-  CostValue: 30
-  RewardValue: 100
-  CostAssemblyQualifiedName: Game.VIP.VIPCostComponent, VIP, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  RewardAssemblyQualifiedName: Game.Gold.GoldRewardComponent, Gold, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
+  CostMonoScripts:
+  - {fileID: 11500000, guid: 59b7fa799bd918c4b8af1045262a2f3d, type: 3}
+  RewardMonoScripts:
+  - {fileID: 11500000, guid: f0b77b1f762559240bb2efe53eeb25d5, type: 3}
+  CostValues:
+  - 30
+  RewardValues:
+  - 100
+  CostAssemblyQualifiedNames:
+  - Game.VIP.VIPCostComponent, VIP, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  RewardAssemblyQualifiedNames:
+  - Game.Gold.GoldRewardComponent, Gold, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

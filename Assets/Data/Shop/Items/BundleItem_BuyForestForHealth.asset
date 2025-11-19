@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: BundleItem_BuyForestForHealth
   m_EditorClassIdentifier: 
   Description: Buy Forest for Health
-  CostMonoScript: {fileID: 11500000, guid: ccb62d9d2bd52904a990950d6aa19d6d, type: 3}
-  RewardMonoScript: {fileID: 11500000, guid: 09729db2c21f51745a8e42fe997ed071, type: 3}
-  CostValue: 100
-  RewardValue: Forest
-  CostAssemblyQualifiedName: Game.Health.HealthCostComponent, Health, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  RewardAssemblyQualifiedName: Game.Location.LocationRewardComponent, Location, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
+  CostMonoScripts:
+  - {fileID: 11500000, guid: ccb62d9d2bd52904a990950d6aa19d6d, type: 3}
+  RewardMonoScripts:
+  - {fileID: 11500000, guid: 09729db2c21f51745a8e42fe997ed071, type: 3}
+  CostValues:
+  - 10
+  RewardValues:
+  - Forest
+  CostAssemblyQualifiedNames:
+  - Game.Health.HealthCostComponent, Health, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  RewardAssemblyQualifiedNames:
+  - Game.Location.LocationRewardComponent, Location, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null

@@ -4,6 +4,8 @@ namespace Game.Core
     {
         bool CanAfford();
 
+        void SetValue(string value);
+
         void Apply();
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,109 +10,121 @@ namespace Game.Core
     {
         public string Description;
 
-        [Space] public MonoScript CostMonoScript;
-        public MonoScript RewardMonoScript;
+        [Space]
 
-        [Space] public string CostValue;
-        public string RewardValue;
+        public List<MonoScript> CostMonoScripts;
+        public List<MonoScript> RewardMonoScripts;
 
-        [Space] public string CostAssemblyQualifiedName;
-        public string RewardAssemblyQualifiedName;
+        public List<string> CostValues;
+        public List<string> RewardValues;
 
-        private Type _cachedCostType;
-        private Type _cachedRewardType;
+        public List<string> CostAssemblyQualifiedNames;
+        public List<string> RewardAssemblyQualifiedNames;
 
-        public Type CostScriptType
+        private List<Type> _cachedCostTypes =  new();
+        private List<Type> _cachedRewardTypes = new();
+
+        private Type CostScriptType(int index)
         {
-            get
+            if (_cachedCostTypes[index] == null && !string.IsNullOrEmpty(CostAssemblyQualifiedNames[index]))
             {
-                if (_cachedCostType == null && !string.IsNullOrEmpty(CostAssemblyQualifiedName))
-                {
-                    _cachedCostType = Type.GetType(CostAssemblyQualifiedName);
-                }
-
-                return _cachedCostType;
+                _cachedCostTypes[index] = Type.GetType(CostAssemblyQualifiedNames[index]);
             }
+
+            return _cachedCostTypes[index];
         }
 
-        private Type RewardScriptType
+        private Type RewardScriptType(int index)
         {
-            get
+            if (_cachedRewardTypes[index] == null && !string.IsNullOrEmpty(RewardAssemblyQualifiedNames[index]))
             {
-                if (_cachedRewardType == null && !string.IsNullOrEmpty(RewardAssemblyQualifiedName))
-                {
-                    _cachedRewardType = Type.GetType(RewardAssemblyQualifiedName);
-                }
-
-                return _cachedRewardType;
+                _cachedRewardTypes[index] = Type.GetType(RewardAssemblyQualifiedNames[index]);
             }
+
+            return _cachedRewardTypes[index];
         }
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (CostMonoScript != null)
+            CostAssemblyQualifiedNames.Clear();
+            _cachedCostTypes.Clear();
+            for (int index = 0; index < CostMonoScripts.Count; index++)
             {
-                var scriptType = CostMonoScript.GetClass();
+                if (CostMonoScripts[index] != null)
+                {
+                    var scriptType = CostMonoScripts[index].GetClass();
 
-                if ((scriptType != null) && scriptType.IsSubclassOf(typeof(MonoBehaviour)))
-                {
-                    CostAssemblyQualifiedName = scriptType.AssemblyQualifiedName;
-                    _cachedCostType =  scriptType;
-                }
-                else
-                {
-                    Debug.LogWarning($"Script on {name} is not a MonoBehaviour!");
-                    CostMonoScript = null;
+                    if ((scriptType != null) && scriptType.IsSubclassOf(typeof(MonoBehaviour)))
+                    {
+                        CostAssemblyQualifiedNames.Add(scriptType.AssemblyQualifiedName);
+                        _cachedCostTypes.Add(scriptType);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Script on {name} is not a MonoBehaviour!");
+                        CostMonoScripts.RemoveAt(index);
+                    }
                 }
             }
-            else
-            {
-                CostAssemblyQualifiedName = string.Empty;
-                _cachedCostType = null;
-            }
 
-            if (RewardMonoScript != null)
+            RewardAssemblyQualifiedNames.Clear();
+            _cachedRewardTypes.Clear();
+            for (int index = 0; index < RewardMonoScripts.Count; index++)
             {
-                var scriptType = RewardMonoScript.GetClass();
+                if (RewardMonoScripts[index] != null)
+                {
+                    var scriptType = RewardMonoScripts[index].GetClass();
 
-                if ((scriptType != null) && scriptType.IsSubclassOf(typeof(MonoBehaviour)))
-                {
-                    RewardAssemblyQualifiedName = scriptType.AssemblyQualifiedName;
-                    _cachedRewardType =  scriptType;
+                    if ((scriptType != null) && scriptType.IsSubclassOf(typeof(MonoBehaviour)))
+                    {
+                        RewardAssemblyQualifiedNames.Add(scriptType.AssemblyQualifiedName);
+                        _cachedRewardTypes.Add(scriptType);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Script on {name} is not a MonoBehaviour!");
+                        RewardMonoScripts[index] = null;
+                    }
                 }
-                else
-                {
-                    Debug.LogWarning($"Script on {name} is not a MonoBehaviour!");
-                    RewardMonoScript = null;
-                }
-            }
-            else
-            {
-                RewardAssemblyQualifiedName = string.Empty;
-                _cachedRewardType = null;
             }
         }
 #endif
 
         // Add the component to a GameObject at runtime
-        public Component AddCostComponentToGameObject(GameObject target)
+        public List<ICost> AddCostComponentsToGameObject(GameObject target)
         {
-            if (CostScriptType != null)
+            List<ICost> components = new();
+            for (int index = 0; index < CostMonoScripts.Count; index++)
             {
-                return target.AddComponent(CostScriptType);
+                var scriptType = CostScriptType(index);
+                if (scriptType != null)
+                {
+                    var component = target.AddComponent(scriptType).GetComponent<ICost>();
+                    var value = CostValues[index];
+                    component.SetValue(value);
+                    components.Add(component);
+                }
             }
 
-            return null;
+            return components;
         }
 
-        public Component AddRewardComponentToGameObject(GameObject target)
+        public List<IReward> AddRewardComponentsToGameObject(GameObject target)
         {
-            if (RewardScriptType != null)
+            List<IReward> components = new();
+            for (int index = 0; index < RewardMonoScripts.Count; index++)
             {
-                return target.AddComponent(RewardScriptType);
+                var scriptType = RewardScriptType(index);
+                if (scriptType != null)
+                {
+                    var component = target.AddComponent(scriptType).GetComponent<IReward>();
+                    var value = RewardValues[index];
+                    component.SetValue(value);
+                    components.Add(component);
+                }
             }
 
-            return null;
+            return components;
         }
     }
 }

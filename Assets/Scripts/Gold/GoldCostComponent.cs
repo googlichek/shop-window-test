@@ -10,6 +10,11 @@ namespace Game.Gold
             throw new System.NotImplementedException();
         }
 
+        public void SetValue(string value)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Apply()
         {
             throw new System.NotImplementedException();

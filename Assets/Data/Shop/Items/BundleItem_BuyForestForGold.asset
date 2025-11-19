@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: BundleItem_BuyForestForGold
   m_EditorClassIdentifier: 
   Description: Buy Forest for Gold
-  CostMonoScript: {fileID: 11500000, guid: 7e52b6f994f12f54e821331325bd5ae1, type: 3}
-  RewardMonoScript: {fileID: 11500000, guid: 09729db2c21f51745a8e42fe997ed071, type: 3}
-  CostValue: 100
-  RewardValue: Forest
-  CostAssemblyQualifiedName: Game.Gold.GoldCostComponent, Gold, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  RewardAssemblyQualifiedName: Game.Location.LocationRewardComponent, Location, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
+  CostMonoScripts:
+  - {fileID: 11500000, guid: 7e52b6f994f12f54e821331325bd5ae1, type: 3}
+  RewardMonoScripts:
+  - {fileID: 11500000, guid: 09729db2c21f51745a8e42fe997ed071, type: 3}
+  CostValues:
+  - 100
+  RewardValues:
+  - Forest
+  CostAssemblyQualifiedNames:
+  - Game.Gold.GoldCostComponent, Gold, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  RewardAssemblyQualifiedNames:
+  - Game.Location.LocationRewardComponent, Location, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null

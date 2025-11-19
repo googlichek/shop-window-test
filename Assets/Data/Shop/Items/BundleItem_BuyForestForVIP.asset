@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: BundleItem_BuyForestForVIP
   m_EditorClassIdentifier: 
   Description: Buy Forest for VIP
-  CostMonoScript: {fileID: 11500000, guid: 59b7fa799bd918c4b8af1045262a2f3d, type: 3}
-  RewardMonoScript: {fileID: 11500000, guid: 09729db2c21f51745a8e42fe997ed071, type: 3}
-  CostValue: 30
-  RewardValue: Forest
-  CostAssemblyQualifiedName: Game.VIP.VIPCostComponent, VIP, Version=0.0.0.0, Culture=neutral,
+  CostMonoScripts:
+  - {fileID: 11500000, guid: 59b7fa799bd918c4b8af1045262a2f3d, type: 3}
+  RewardMonoScripts:
+  - {fileID: 11500000, guid: 09729db2c21f51745a8e42fe997ed071, type: 3}
+  CostValues:
+  - 30
+  RewardValues:
+  - Forest
+  CostAssemblyQualifiedNames:
+  - Game.VIP.VIPCostComponent, VIP, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  RewardAssemblyQualifiedNames:
+  - Game.Location.LocationRewardComponent, Location, Version=0.0.0.0, Culture=neutral,
     PublicKeyToken=null
-  RewardAssemblyQualifiedName: Game.Location.LocationRewardComponent, Location, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null

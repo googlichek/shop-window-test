@@ -8,7 +8,7 @@ namespace Game.Shop
 {
     public class ShopContentComponent : MonoBehaviour
     {
-        [SerializeReference] private ShopItemComponent _itemComponentPrefab;
+        [SerializeReference] private GameObject _itemPrefab;
         [SerializeReference] private Toggle _togglePrefab;
         [SerializeReference] private ToggleGroup _toggleGroup;
         [SerializeReference] private SimpleScrollSnap _scrollSnap;
@@ -38,11 +38,15 @@ namespace Game.Shop
             position -= new Vector3(_toggleWidth / 2f, 0, 0);
             _scrollSnap.Pagination.transform.position = position;
 
-            var item = _scrollSnap.Add(_itemComponentPrefab.gameObject, index);
-            item.gameObject.GetComponent<Image>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            var item = _scrollSnap.Add(_itemPrefab, index);
+            item.GetComponent<Image>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
             var bundleItem = _shopData.Bundles[index];
-            bundleItem.AddCostComponentToGameObject(item.gameObject);
-            bundleItem.AddRewardComponentToGameObject(item.gameObject);
+
+            var costComponents = bundleItem.AddCostComponentsToGameObject(item.gameObject);
+            var rewardComponents = bundleItem.AddRewardComponentsToGameObject(item.gameObject);
+            var shopItemComponent = item.GetComponent<ShopItemComponent>();
+            shopItemComponent.Setup(costComponents, rewardComponents);
         }
 
         public void Remove(int index)
