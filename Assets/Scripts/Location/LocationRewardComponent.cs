@@ -9,7 +9,7 @@ namespace Game.Location
 
         public bool DoWant()
         {
-            return string.IsNullOrEmpty(PlayerData.Instance.Location);
+            return string.IsNullOrEmpty(PlayerData.Instance.Location) && string.IsNullOrEmpty(PlayerData.Instance.ReservedLocation);
         }
 
         public void SetValue(string value)
@@ -17,9 +17,15 @@ namespace Game.Location
             _reward = value;
         }
 
-        public void Apply()
+        public void ReserveChanges()
+        {
+            PlayerData.Instance.ReservedLocation = _reward;
+        }
+
+        public void ApplyChanges()
         {
             PlayerData.Instance.Location = _reward;
+            PlayerData.Instance.ReservedLocation = string.Empty;
         }
     }
 }

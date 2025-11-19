@@ -10,7 +10,7 @@ namespace Game.VIP
 
         public bool CanAfford()
         {
-            return PlayerData.Instance.VIPDuration.TotalSeconds > _cost.TotalSeconds;
+            return PlayerData.Instance.VIPDuration.TotalSeconds - PlayerData.Instance.ReservedVIPDuration.TotalSeconds > _cost.TotalSeconds;
         }
 
         public void SetValue(string value)
@@ -19,9 +19,15 @@ namespace Game.VIP
             _cost = TimeSpan.FromSeconds(seconds);
         }
 
-        public void Apply()
+        public void ReserveChanges()
+        {
+            PlayerData.Instance.ReservedVIPDuration += _cost;
+        }
+
+        public void ApplyChanges()
         {
             PlayerData.Instance.VIPDuration -= _cost;
+            PlayerData.Instance.ReservedVIPDuration -= _cost;
         }
     }
 }

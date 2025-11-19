@@ -8,5 +8,10 @@ namespace Game.Core
         public float Health = 100;
         public string Location = "Forest";
         public TimeSpan VIPDuration = TimeSpan.FromSeconds(45);
+
+        public float ReservedGold;
+        public float ReservedHealth;
+        public string ReservedLocation;
+        public TimeSpan ReservedVIPDuration;
     }
 }

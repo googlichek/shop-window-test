@@ -6,6 +6,8 @@ namespace Game.Core
 
         void SetValue(string value);
 
-        void Apply();
+        void ReserveChanges();
+
+        void ApplyChanges();
     }
 }

@@ -9,7 +9,7 @@ namespace Game.Health
 
         public bool CanAfford()
         {
-            return PlayerData.Instance.Health > _cost;
+            return PlayerData.Instance.Health - PlayerData.Instance.ReservedHealth > _cost;
         }
 
         public void SetValue(string value)
@@ -17,9 +17,15 @@ namespace Game.Health
             _cost = float.Parse(value);
         }
 
-        public void Apply()
+        public void ReserveChanges()
+        {
+            PlayerData.Instance.ReservedHealth += _cost;
+        }
+
+        public void ApplyChanges()
         {
             PlayerData.Instance.Health -= _cost;
+            PlayerData.Instance.ReservedHealth -= _cost;
         }
     }
 }

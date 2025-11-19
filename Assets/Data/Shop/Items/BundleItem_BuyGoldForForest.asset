@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d5d48341ad6c940a8b8aaf6d14059d, type: 3}
   m_Name: BundleItem_BuyGoldForForest
   m_EditorClassIdentifier: 
-  Description: Buy Gold for Health
+  Description: Buy Gold for Forest
   CostMonoScripts:
   - {fileID: 11500000, guid: 6aad11c00ae17d54caf5f8643cf4676b, type: 3}
   RewardMonoScripts:

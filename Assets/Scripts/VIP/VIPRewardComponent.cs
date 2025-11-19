@@ -19,7 +19,11 @@ namespace Game.VIP
             _reward = TimeSpan.FromSeconds(seconds);
         }
 
-        public void Apply()
+        public void ReserveChanges()
+        {
+        }
+
+        public void ApplyChanges()
         {
             PlayerData.Instance.VIPDuration += _reward;
         }

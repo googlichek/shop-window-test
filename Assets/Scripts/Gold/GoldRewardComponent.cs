@@ -17,7 +17,11 @@ namespace Game.Gold
             _reward = float.Parse(value);
         }
 
-        public void Apply()
+        public void ReserveChanges()
+        {
+        }
+
+        public void ApplyChanges()
         {
             PlayerData.Instance.Gold += _reward;
         }
