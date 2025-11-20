@@ -7,8 +7,12 @@ namespace Game.Location
     {
         private void Awake()
         {
-            var data = new LocationData();
-            PlayerData.Instance.SetData(data);
+            var data = PlayerData.Instance.GetData<LocationData>();
+            if (data == null)
+            {
+                data = new LocationData();
+                PlayerData.Instance.SetData(data);
+            }
         }
     }
 }

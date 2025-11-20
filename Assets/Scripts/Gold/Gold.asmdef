@@ -1,7 +1,10 @@
 {
     "name": "Gold",
     "rootNamespace": "Game.Gold",
-    "references": ["Core"],
+    "references": [
+        "Core",
+        "Unity.TextMeshPro"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

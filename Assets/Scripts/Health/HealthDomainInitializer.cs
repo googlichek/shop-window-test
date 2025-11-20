@@ -7,8 +7,12 @@ namespace Game.Health
     {
         private void Awake()
         {
-            var data = new HealthData();
-            PlayerData.Instance.SetData(data);
+            var data = PlayerData.Instance.GetData<HealthData>();
+            if (data == null)
+            {
+                data = new HealthData();
+                PlayerData.Instance.SetData(data);
+            }
         }
     }
 }

@@ -7,8 +7,12 @@ namespace Game.Gold
     {
         private void Awake()
         {
-            var data = new GoldData();
-            PlayerData.Instance.SetData(data);
+            var data = PlayerData.Instance.GetData<GoldData>();
+            if (data == null)
+            {
+                data = new GoldData();
+                PlayerData.Instance.SetData(data);
+            }
         }
     }
 }

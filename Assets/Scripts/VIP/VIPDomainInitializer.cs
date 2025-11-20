@@ -7,8 +7,12 @@ namespace Game.VIP
     {
         private void Awake()
         {
-            var data = new VIPData();
-            PlayerData.Instance.SetData(data);
+            var data = PlayerData.Instance.GetData<VIPData>();
+            if (data == null)
+            {
+                data = new VIPData();
+                PlayerData.Instance.SetData(data);
+            }
         }
     }
 }

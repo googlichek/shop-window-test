@@ -59,8 +59,12 @@ namespace Game.Shop
             position -= new Vector3(_toggleWidth / 2f, 0, 0);
             _scrollSnap.Pagination.transform.position = position;
 
+            var colorR = PlayerData.Instance.R * (1.0f + index) % 1.0f;
+            var colorG = PlayerData.Instance.G * (1.0f + index) % 1.0f;
+            var colorB = PlayerData.Instance.B * (1.0f + index) % 1.0f;
+
             var item = _scrollSnap.Add(_itemPrefab, index);
-            item.GetComponent<Image>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            item.GetComponent<Image>().color = new Color(colorR, colorG, colorB);
 
             var bundleItem = _shopData.Bundles[index];
             var costComponents = bundleItem.AddCostComponentsToGameObject(item.gameObject);
