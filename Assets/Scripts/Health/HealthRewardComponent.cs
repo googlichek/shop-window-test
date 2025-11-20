@@ -23,7 +23,8 @@ namespace Game.Health
 
         public void ApplyChanges()
         {
-            PlayerData.Instance.Health += _reward;
+            var data = PlayerData.Instance.GetData<HealthData>();
+            data.CurrentValue += _reward;
         }
     }
 }

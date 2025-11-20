@@ -14,17 +14,17 @@ namespace Game.Shop
 
         void Update()
         {
-            var goldValueString = PlayerData.Instance.Gold.ToString(CultureInfo.InvariantCulture);
-            _goldValueText.SetText(goldValueString);
-
-            var healthValueString = PlayerData.Instance.Health.ToString(CultureInfo.InvariantCulture);
-            _healthValueText.SetText(healthValueString);
-
-            var locationValueString = PlayerData.Instance.Location;
-            _locationValueText.SetText(locationValueString);
-
-            var vipValueString = PlayerData.Instance.VIPDuration.ToString(CultureInfo.InvariantCulture.ToString());
-            _VIPValueText.SetText(vipValueString);
+        //     var goldValueString = PlayerData.Instance.GoldData.CurrentValue.ToString(CultureInfo.InvariantCulture);
+        //     _goldValueText.SetText(goldValueString);
+        //
+        //     var healthValueString = PlayerData.Instance.HealthData.CurrentValue.ToString(CultureInfo.InvariantCulture);
+        //     _healthValueText.SetText(healthValueString);
+        //
+        //     var locationValueString = PlayerData.Instance.LocationData.CurrentValue;
+        //     _locationValueText.SetText(locationValueString);
+        //
+        //     var vipValueString = PlayerData.Instance.VIPDurationData.CurrentValue.ToString(CultureInfo.InvariantCulture.ToString());
+        //     _VIPValueText.SetText(vipValueString);
         }
     }
 }

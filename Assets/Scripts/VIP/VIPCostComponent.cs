@@ -10,7 +10,8 @@ namespace Game.VIP
 
         public bool CanAfford()
         {
-            return PlayerData.Instance.VIPDuration.TotalSeconds - PlayerData.Instance.ReservedVIPDuration.TotalSeconds > _cost.TotalSeconds;
+            var data = PlayerData.Instance.GetData<VIPData>();
+            return data.CurrentValue.TotalSeconds - data.ReservedValue.TotalSeconds > _cost.TotalSeconds;
         }
 
         public void SetValue(string value)
@@ -21,13 +22,15 @@ namespace Game.VIP
 
         public void ReserveChanges()
         {
-            PlayerData.Instance.ReservedVIPDuration += _cost;
+            var data = PlayerData.Instance.GetData<VIPData>();
+            data.ReservedValue += _cost;
         }
 
         public void ApplyChanges()
         {
-            PlayerData.Instance.VIPDuration -= _cost;
-            PlayerData.Instance.ReservedVIPDuration -= _cost;
+            var data = PlayerData.Instance.GetData<VIPData>();
+            data.CurrentValue -= _cost;
+            data.ReservedValue -= _cost;
         }
     }
 }

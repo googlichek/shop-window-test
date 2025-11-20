@@ -9,7 +9,8 @@ namespace Game.Location
 
         public bool DoWant()
         {
-            return string.IsNullOrEmpty(PlayerData.Instance.Location) && string.IsNullOrEmpty(PlayerData.Instance.ReservedLocation);
+            var data = PlayerData.Instance.GetData<LocationData>();
+            return string.IsNullOrEmpty(data.CurrentValue) && string.IsNullOrEmpty(data.ReservedValue);
         }
 
         public void SetValue(string value)
@@ -19,13 +20,15 @@ namespace Game.Location
 
         public void ReserveChanges()
         {
-            PlayerData.Instance.ReservedLocation = _reward;
+            var data = PlayerData.Instance.GetData<LocationData>();
+            data.ReservedValue = _reward;
         }
 
         public void ApplyChanges()
         {
-            PlayerData.Instance.Location = _reward;
-            PlayerData.Instance.ReservedLocation = string.Empty;
+            var data = PlayerData.Instance.GetData<LocationData>();
+            data.CurrentValue = _reward;
+            data.ReservedValue = string.Empty;
         }
     }
 }

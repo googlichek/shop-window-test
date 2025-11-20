@@ -25,6 +25,7 @@ namespace Game.Shop
         [Space]
 
         [SerializeReference] private Button _backButton;
+        [SerializeReference] private Button _exitButton;
 
         private float _toggleWidth;
 
@@ -35,6 +36,7 @@ namespace Game.Shop
             _toggleWidth = ((RectTransform) _togglePrefab.transform).sizeDelta.x * (Screen.width / Constants.ScreenResolution.x);
 
             _backButton.onClick.AddListener(OnBackButtonClick);
+            _exitButton.onClick.AddListener(OnExitButtonClick);
 
             SceneManager.sceneLoaded += HandleSceneLoaded;
             HandleSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
@@ -43,6 +45,7 @@ namespace Game.Shop
         void OnDestroy()
         {
             _backButton.onClick.RemoveListener(OnBackButtonClick);
+            _exitButton.onClick.RemoveListener(OnExitButtonClick);
 
             SceneManager.sceneLoaded -= HandleSceneLoaded;
         }
@@ -83,6 +86,11 @@ namespace Game.Shop
             SceneManager.LoadScene(shopSceneIndex);
         }
 
+        private void OnExitButtonClick()
+        {
+            Application.Quit();
+        }
+
         private void HandleSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
             if (hasSceneLoaded)
@@ -108,6 +116,7 @@ namespace Game.Shop
             if (scene.buildIndex == cardCloseUpSceneIndex)
             {
                 _toggleGroup.gameObject.SetActive(false);
+                _exitButton.gameObject.SetActive(false);
 
                 Add(PlayerData.Instance.CloseUpCardIndex);
             }

@@ -9,7 +9,8 @@ namespace Game.Gold
 
         public bool CanAfford()
         {
-            return PlayerData.Instance.Gold - PlayerData.Instance.ReservedGold >= _cost;
+            var data = PlayerData.Instance.GetData<GoldData>();
+            return data.CurrentValue - data.ReservedValue >= _cost;
         }
 
         public void SetValue(string value)
@@ -19,13 +20,15 @@ namespace Game.Gold
 
         public void ReserveChanges()
         {
-            PlayerData.Instance.ReservedGold += _cost;
+            var data = PlayerData.Instance.GetData<GoldData>();
+            data.ReservedValue += _cost;
         }
 
         public void ApplyChanges()
         {
-            PlayerData.Instance.Gold -= _cost;
-            PlayerData.Instance.ReservedGold -= _cost;
+            var data = PlayerData.Instance.GetData<GoldData>();
+            data.CurrentValue -= _cost;
+            data.ReservedValue -= _cost;
         }
     }
 }

@@ -23,7 +23,8 @@ namespace Game.Gold
 
         public void ApplyChanges()
         {
-            PlayerData.Instance.Gold += _reward;
+            var data = PlayerData.Instance.GetData<GoldData>();
+            data.CurrentValue += _reward;
         }
     }
 }

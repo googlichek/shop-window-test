@@ -25,7 +25,8 @@ namespace Game.VIP
 
         public void ApplyChanges()
         {
-            PlayerData.Instance.VIPDuration += _reward;
+            var data = PlayerData.Instance.GetData<VIPData>();
+            data.CurrentValue += _reward;
         }
     }
 }

@@ -1,19 +1,29 @@
 using System;
+using System.Collections.Generic;
 
 namespace Game.Core
 {
     public class PlayerData : Singleton<PlayerData>
     {
-        public float Gold = 100;
-        public float Health = 100;
-        public string Location = "Forest";
-        public TimeSpan VIPDuration = TimeSpan.FromSeconds(45);
-
-        public float ReservedGold;
-        public float ReservedHealth;
-        public string ReservedLocation;
-        public TimeSpan ReservedVIPDuration;
+        private readonly Dictionary<Type, object> _data = new();
 
         public int CloseUpCardIndex;
+
+        public T GetData<T>() where T : class
+        {
+            var type = typeof(T);
+
+            if (_data.TryGetValue(type, out var data))
+            {
+                return data as T;
+            }
+
+            return null;
+        }
+
+        public void SetData<T>(T data) where T : class
+        {
+            _data[typeof(T)] = data;
+        }
     }
 }

@@ -9,7 +9,8 @@ namespace Game.Location
 
         public bool CanAfford()
         {
-            return PlayerData.Instance.Location.Equals(_cost) && string.IsNullOrEmpty(PlayerData.Instance.ReservedLocation);
+            var data = PlayerData.Instance.GetData<LocationData>();
+            return data.CurrentValue.Equals(_cost) && string.IsNullOrEmpty(data.ReservedValue);
         }
 
         public void SetValue(string value)
@@ -19,13 +20,15 @@ namespace Game.Location
 
         public void ReserveChanges()
         {
-            PlayerData.Instance.ReservedLocation = PlayerData.Instance.Location;
+            var data = PlayerData.Instance.GetData<LocationData>();
+            data.ReservedValue = data.CurrentValue;
         }
 
         public void ApplyChanges()
         {
-            PlayerData.Instance.ReservedLocation = string.Empty;
-            PlayerData.Instance.Location = string.Empty;
+            var data = PlayerData.Instance.GetData<LocationData>();
+            data.ReservedValue = string.Empty;
+            data.CurrentValue = string.Empty;
         }
     }
 }
